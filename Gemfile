@@ -42,6 +42,9 @@ group :development, :test do
   gem 'shoulda-matchers', require: false
   gem 'factory_girl_rails'
   gem 'faker'
+  gem "bower-rails", "~> 0.11.0"
+  #Paginacao
+  gem 'kaminari'
 end
 
 group :development do
