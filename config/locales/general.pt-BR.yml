@@ -1,0 +1,10 @@
+pt-BR:
+  app:
+    new: "Novo %{model_name}"
+    edit: "Editar"
+    show: "Visualizar"
+    destroy: "Apagar"
+    actions: "Ações"
+    create: "Salvar %{model_name}"
+    messages:
+      are_you_sure: "Deseja realmente apagar?"

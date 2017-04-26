@@ -45,6 +45,11 @@ group :development, :test do
   gem "bower-rails", "~> 0.11.0"
   #Paginacao
   gem 'kaminari'
+
+  #Bootstrap
+  gem "therubyracer"
+  gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+  gem "twitter-bootstrap-rails"
 end
 
 group :development do
