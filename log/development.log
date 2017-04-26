@@ -1,0 +1,756 @@
+  [1m[35m (14.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (9.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateContacts (20170323195142)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "contacts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "cellphone" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170323195142"]]
+  [1m[35m (9.7ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddEmailIntoContacts (20170323201009)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "contacts" ADD "email" varchar[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170323201009"]]
+  [1m[35m (7.9ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddFieldsIntoContact (20170330194242)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "contacts" ADD "address" varchar[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "contacts" ADD "birthdate" date[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20170330194242"]]
+  [1m[35m (8.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", :environment], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", 2017-04-14 00:56:23 UTC], ["updated_at", 2017-04-14 00:56:23 UTC]]
+  [1m[35m (7.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Started GET "/" for 127.0.0.1 at 2017-04-13 21:56:38 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Rails::WelcomeController#index as HTML
+  Parameters: {"internal"=>true}
+  Rendering /home/cardolfo/.rvm/gems/ruby-2.4.0/gems/railties-5.0.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/cardolfo/.rvm/gems/ruby-2.4.0/gems/railties-5.0.2/lib/rails/templates/rails/welcome/index.html.erb (4.8ms)
+Completed 200 OK in 21ms (Views: 9.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2017-04-13 21:56:43 -0300
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[36mContact Load (0.5ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts"[0m
+  Rendered contacts/index.html.erb within layouts/application (614.3ms)
+Completed 200 OK in 1421ms (Views: 1401.0ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-13 21:56:51 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (22.9ms)
+  Rendered contacts/new.html.erb within layouts/application (24.9ms)
+Completed 200 OK in 104ms (Views: 85.1ms | ActiveRecord: 1.9ms)
+
+
+Started POST "/contacts" for 127.0.0.1 at 2017-04-13 21:57:14 -0300
+Processing by ContactsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"kmlmIMFTnovdbqAQkW06ITCnijv5dfWH8DZz1C1vpfdRY/SlEzpYLYm5T7LZ4OIVXgEa3P12n/Fn4+oRH68CAw==", "contact"=>{"nome"=>"Carlos Adolfo", "cellphone"=>"85 999272596", "email"=>"cardolfo@gmail.com", "address"=>"dadad", "birthdate(3i)"=>"14", "birthdate(2i)"=>"4", "birthdate(1i)"=>"2017"}, "commit"=>"Criar Contato"}
+  [1m[35m (0.7ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "85 999272596"], ["LIMIT", 1]]
+  [1m[36mContact Exists (1.7ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "cardolfo@gmail.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Carlos Adolfo"], ["cellphone", "85 999272596"], ["created_at", 2017-04-14 00:57:14 UTC], ["updated_at", 2017-04-14 00:57:14 UTC], ["email", "cardolfo@gmail.com"], ["address", "dadad"], ["birthdate", Fri, 14 Apr 2017]]
+  [1m[35m (13.8ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/contacts/1
+Completed 302 Found in 55ms (ActiveRecord: 16.9ms)
+
+
+Started GET "/contacts/1" for 127.0.0.1 at 2017-04-13 21:57:14 -0300
+Processing by ContactsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mContact Load (0.5ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering contacts/show.html.erb within layouts/application
+  Rendered contacts/show.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 60ms (Views: 51.8ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2017-04-13 21:57:16 -0300
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[36mContact Load (0.6ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts"[0m
+  Rendered contacts/index.html.erb within layouts/application (8.0ms)
+Completed 200 OK in 65ms (Views: 61.0ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2017-04-18 17:31:18 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[36mContact Load (0.3ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts"[0m
+  Rendered contacts/index.html.erb within layouts/application (661.0ms)
+Completed 200 OK in 1126ms (Views: 1094.3ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:34:48 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (68.3ms)
+  Rendered contacts/new.html.erb within layouts/application (71.0ms)
+Completed 200 OK in 159ms (Views: 153.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:34:48 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (8.1ms)
+  Rendered contacts/new.html.erb within layouts/application (10.2ms)
+Completed 200 OK in 38ms (Views: 36.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:39:50 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (11.7ms)
+  Rendered contacts/new.html.erb within layouts/application (18.8ms)
+Completed 200 OK in 148ms (Views: 144.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:40:01 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (6.8ms)
+  Rendered contacts/new.html.erb within layouts/application (8.7ms)
+Completed 200 OK in 49ms (Views: 46.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:41:36 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (3.6ms)
+  Rendered contacts/new.html.erb within layouts/application (5.0ms)
+Completed 200 OK in 90ms (Views: 88.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:42:26 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (4.0ms)
+  Rendered contacts/new.html.erb within layouts/application (5.5ms)
+Completed 200 OK in 84ms (Views: 82.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:42:44 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (5.2ms)
+  Rendered contacts/new.html.erb within layouts/application (7.5ms)
+Completed 200 OK in 88ms (Views: 85.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:43:04 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (5.7ms)
+  Rendered contacts/new.html.erb within layouts/application (7.8ms)
+Completed 200 OK in 91ms (Views: 88.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:43:04 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (4.7ms)
+  Rendered contacts/new.html.erb within layouts/application (7.8ms)
+Completed 200 OK in 37ms (Views: 34.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:43:05 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (5.8ms)
+  Rendered contacts/new.html.erb within layouts/application (7.6ms)
+Completed 200 OK in 43ms (Views: 41.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:43:05 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (3.7ms)
+  Rendered contacts/new.html.erb within layouts/application (5.2ms)
+Completed 200 OK in 32ms (Views: 30.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:43:39 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (5.5ms)
+  Rendered contacts/new.html.erb within layouts/application (7.1ms)
+Completed 200 OK in 92ms (Views: 89.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:43:41 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (4.9ms)
+  Rendered contacts/new.html.erb within layouts/application (6.5ms)
+Completed 200 OK in 33ms (Views: 30.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:44:04 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (4.1ms)
+  Rendered contacts/new.html.erb within layouts/application (5.8ms)
+Completed 200 OK in 86ms (Views: 84.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:44:29 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (5.3ms)
+  Rendered contacts/new.html.erb within layouts/application (7.5ms)
+Completed 200 OK in 45ms (Views: 43.5ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:44:30 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (5.8ms)
+  Rendered contacts/new.html.erb within layouts/application (7.8ms)
+Completed 200 OK in 34ms (Views: 31.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:44:30 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (4.3ms)
+  Rendered contacts/new.html.erb within layouts/application (5.9ms)
+Completed 200 OK in 34ms (Views: 32.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:44:53 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (4.1ms)
+  Rendered contacts/new.html.erb within layouts/application (5.7ms)
+Completed 200 OK in 86ms (Views: 84.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:45:42 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (7.6ms)
+  Rendered contacts/new.html.erb within layouts/application (9.7ms)
+Completed 200 OK in 95ms (Views: 93.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2017-04-18 17:45:48 -0300
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[36mContact Load (0.4ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts"[0m
+  Rendered contacts/index.html.erb within layouts/application (3.6ms)
+Completed 200 OK in 46ms (Views: 43.9ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:45:50 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (4.6ms)
+  Rendered contacts/new.html.erb within layouts/application (6.1ms)
+Completed 200 OK in 37ms (Views: 34.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2017-04-18 17:46:00 -0300
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[36mContact Load (0.6ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts"[0m
+  Rendered contacts/index.html.erb within layouts/application (4.0ms)
+Completed 200 OK in 36ms (Views: 34.4ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:46:02 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (5.5ms)
+  Rendered contacts/new.html.erb within layouts/application (7.0ms)
+Completed 200 OK in 32ms (Views: 30.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2017-04-18 17:47:14 -0300
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[36mContact Load (0.7ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts"[0m
+  Rendered contacts/index.html.erb within layouts/application (6.0ms)
+Completed 200 OK in 96ms (Views: 93.4ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:47:16 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (5.0ms)
+  Rendered contacts/new.html.erb within layouts/application (6.7ms)
+Completed 200 OK in 31ms (Views: 29.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:47:28 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (4.2ms)
+  Rendered contacts/new.html.erb within layouts/application (5.8ms)
+Completed 200 OK in 83ms (Views: 81.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:47:50 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (3.8ms)
+  Rendered contacts/new.html.erb within layouts/application (5.5ms)
+Completed 200 OK in 37ms (Views: 35.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2017-04-18 17:48:25 -0300
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[36mContact Load (0.3ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts"[0m
+  Rendered contacts/index.html.erb within layouts/application (3.2ms)
+Completed 200 OK in 29ms (Views: 27.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/contacts/1/edit" for 127.0.0.1 at 2017-04-18 17:48:32 -0300
+Processing by ContactsController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mContact Load (0.5ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" WHERE "contacts"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering contacts/edit.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (5.5ms)
+  Rendered contacts/edit.html.erb within layouts/application (7.4ms)
+Completed 200 OK in 47ms (Views: 35.3ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2017-04-18 17:48:37 -0300
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[36mContact Load (0.3ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts"[0m
+  Rendered contacts/index.html.erb within layouts/application (3.6ms)
+Completed 200 OK in 29ms (Views: 27.3ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2017-04-18 17:55:08 -0300
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[36mContact Load (2.1ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts"[0m
+  Rendered contacts/index.html.erb within layouts/application (6.8ms)
+Completed 200 OK in 99ms (Views: 94.8ms | ActiveRecord: 2.1ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:55:10 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (1.5ms)
+  Rendered contacts/new.html.erb within layouts/application (2.9ms)
+Completed 500 Internal Server Error in 7ms (ActiveRecord: 0.0ms)
+
+
+  
+SyntaxError (/home/cardolfo/Projetos/agenda-web/app/views/contacts/_form.html.erb:21: syntax error, unexpected tIDENTIFIER, expecting ')'
+d=( f.text_field :cellphone id: 'telefone_celular');@output_
+                              ^):
+  
+app/views/contacts/_form.html.erb:21: syntax error, unexpected tIDENTIFIER, expecting ')'
+app/views/contacts/new.html.erb:3:in `_app_views_contacts_new_html_erb__2308065039793946128_69863112605980'
+  Rendering /home/cardolfo/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.2/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout
+  Rendering /home/cardolfo/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.2/lib/action_dispatch/middleware/templates/rescues/_source.html.erb
+  Rendered /home/cardolfo/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.2/lib/action_dispatch/middleware/templates/rescues/_source.html.erb (10.4ms)
+  Rendering /home/cardolfo/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.2/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendered /home/cardolfo/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.2/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (4.5ms)
+  Rendering /home/cardolfo/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendered /home/cardolfo/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.3ms)
+  Rendered /home/cardolfo/.rvm/gems/ruby-2.4.0/gems/actionpack-5.0.2/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (38.5ms)
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:55:20 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (4.1ms)
+  Rendered contacts/new.html.erb within layouts/application (5.7ms)
+Completed 200 OK in 34ms (Views: 32.2ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2017-04-18 17:55:43 -0300
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[36mContact Load (0.3ms)[0m  [1m[34mSELECT "contacts".* FROM "contacts"[0m
+  Rendered contacts/index.html.erb within layouts/application (3.6ms)
+Completed 200 OK in 87ms (Views: 84.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/contacts/new" for 127.0.0.1 at 2017-04-18 17:55:46 -0300
+Processing by ContactsController#new as HTML
+  Rendering contacts/new.html.erb within layouts/application
+  Rendered contacts/_form.html.erb (3.9ms)
+  Rendered contacts/new.html.erb within layouts/application (6.2ms)
+Completed 200 OK in 34ms (Views: 32.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2017-04-18 18:08:46 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[36mContact Load (0.4ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" ORDER BY "contacts"."nome" ASC LIMIT ? OFFSET ?[0m  [["LIMIT", 25], ["OFFSET", 0]]
+  Rendered contacts/index.html.erb within layouts/application (682.4ms)
+Completed 200 OK in 984ms (Views: 965.1ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2017-04-18 18:11:21 -0300
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "contacts"[0m
+  [1m[36mContact Load (0.3ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" ORDER BY "contacts"."nome" ASC LIMIT ? OFFSET ?[0m  [["LIMIT", 25], ["OFFSET", 0]]
+  Rendered contacts/index.html.erb within layouts/application (13.9ms)
+Completed 200 OK in 41ms (Views: 38.4ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2017-04-18 18:11:24 -0300
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "contacts"[0m
+  [1m[36mContact Load (0.4ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" ORDER BY "contacts"."nome" ASC LIMIT ? OFFSET ?[0m  [["LIMIT", 25], ["OFFSET", 0]]
+  Rendered contacts/index.html.erb within layouts/application (7.6ms)
+Completed 200 OK in 38ms (Views: 34.5ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2017-04-18 18:11:25 -0300
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "contacts"[0m
+  [1m[36mContact Load (0.5ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" ORDER BY "contacts"."nome" ASC LIMIT ? OFFSET ?[0m  [["LIMIT", 25], ["OFFSET", 0]]
+  Rendered contacts/index.html.erb within layouts/application (7.9ms)
+Completed 200 OK in 34ms (Views: 31.5ms | ActiveRecord: 0.7ms)
+
+
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 222787617"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "roger@brakusparker.biz"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Sílvia Ribeiro"], ["cellphone", "(85) 222787617"], ["created_at", 2017-04-18 21:15:08 UTC], ["updated_at", 2017-04-18 21:15:08 UTC], ["email", "roger@brakusparker.biz"], ["address", "46329 Viela Vitória Pinto"], ["birthdate", Mon, 29 May 1995]]
+  [1m[35m (8.1ms)[0m  [1m[36mcommit transaction[0m
+DEPRECATION WARNING: Looking up factories by class is deprecated and will be removed in 5.0. Use symbols instead and set FactoryGirl.allow_class_lookup = false (called from irb_binding at (irb):3)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 429880454"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "eleanore@runolfsdottir.biz"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Enzo Castro"], ["cellphone", "(85) 429880454"], ["created_at", 2017-04-18 21:15:17 UTC], ["updated_at", 2017-04-18 21:15:17 UTC], ["email", "eleanore@runolfsdottir.biz"], ["address", "2853 Rua Sara"], ["birthdate", Fri, 08 Apr 1960]]
+  [1m[35m (10.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 234962482"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "dortha.effertz@schmeler.co"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Henrique Almeida"], ["cellphone", "(85) 234962482"], ["created_at", 2017-04-18 21:15:18 UTC], ["updated_at", 2017-04-18 21:15:18 UTC], ["email", "dortha.effertz@schmeler.co"], ["address", "346 Avenida Marcelo Carvalho"], ["birthdate", Thu, 11 Aug 1977]]
+  [1m[35m (9.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 512108200"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "tracey@boehm.net"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Joaquim Macedo"], ["cellphone", "(85) 512108200"], ["created_at", 2017-04-18 21:15:18 UTC], ["updated_at", 2017-04-18 21:15:18 UTC], ["email", "tracey@boehm.net"], ["address", "240 Rodovia Vitória"], ["birthdate", Sun, 05 Dec 1965]]
+  [1m[35m (9.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 054700984"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "kathryne@schroederwilliamson.biz"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Warley Franco"], ["cellphone", "(85) 054700984"], ["created_at", 2017-04-18 21:15:18 UTC], ["updated_at", 2017-04-18 21:15:18 UTC], ["email", "kathryne@schroederwilliamson.biz"], ["address", "1243 Avenida Natália Rodrigues"], ["birthdate", Sat, 04 Feb 1995]]
+  [1m[35m (9.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 937922154"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "ariane@gutkowskifranecki.biz"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Sra. Manuela Rocha"], ["cellphone", "(85) 937922154"], ["created_at", 2017-04-18 21:15:19 UTC], ["updated_at", 2017-04-18 21:15:19 UTC], ["email", "ariane@gutkowskifranecki.biz"], ["address", "488 Ponte Larissa"], ["birthdate", Thu, 03 Aug 1967]]
+  [1m[35m (11.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 649987073"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "darlene_botsford@friesenbradtke.co"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Alessandra Jesus"], ["cellphone", "(85) 649987073"], ["created_at", 2017-04-18 21:15:19 UTC], ["updated_at", 2017-04-18 21:15:19 UTC], ["email", "darlene_botsford@friesenbradtke.co"], ["address", "300 Ponte Mércia Peixoto"], ["birthdate", Tue, 05 Mar 1968]]
+  [1m[35m (9.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 826942946"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "agustin@reichelbogisich.info"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Laura Castro Filho"], ["cellphone", "(85) 826942946"], ["created_at", 2017-04-18 21:15:19 UTC], ["updated_at", 2017-04-18 21:15:19 UTC], ["email", "agustin@reichelbogisich.info"], ["address", "9141 Ponte Suélen"], ["birthdate", Thu, 03 Mar 1960]]
+  [1m[35m (10.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 486788326"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "gerhard@hudson.name"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Bianca Sales"], ["cellphone", "(85) 486788326"], ["created_at", 2017-04-18 21:15:20 UTC], ["updated_at", 2017-04-18 21:15:20 UTC], ["email", "gerhard@hudson.name"], ["address", "295 Alameda Ladislau Braga"], ["birthdate", Mon, 06 Jul 1992]]
+  [1m[35m (9.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 815663509"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "eryn@ankunding.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Valentina Gonçalves"], ["cellphone", "(85) 815663509"], ["created_at", 2017-04-18 21:15:20 UTC], ["updated_at", 2017-04-18 21:15:20 UTC], ["email", "eryn@ankunding.com"], ["address", "s/n Avenida Morgana"], ["birthdate", Fri, 12 Feb 1988]]
+  [1m[35m (10.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 964859952"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "bertram.lueilwitz@buckridge.co"], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Emanuel Moura"], ["cellphone", "(85) 964859952"], ["created_at", 2017-04-18 21:15:20 UTC], ["updated_at", 2017-04-18 21:15:20 UTC], ["email", "bertram.lueilwitz@buckridge.co"], ["address", "s/n Marginal Alessandra"], ["birthdate", Fri, 15 May 1987]]
+  [1m[35m (9.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 880242148"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "jazmin@metz.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Félix Fogaça"], ["cellphone", "(85) 880242148"], ["created_at", 2017-04-18 21:15:21 UTC], ["updated_at", 2017-04-18 21:15:21 UTC], ["email", "jazmin@metz.com"], ["address", "800 Rua Yago"], ["birthdate", Sun, 30 Dec 1956]]
+  [1m[35m (14.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 773263824"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "queen@graham.name"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Sirineu Gonçalves"], ["cellphone", "(85) 773263824"], ["created_at", 2017-04-18 21:15:21 UTC], ["updated_at", 2017-04-18 21:15:21 UTC], ["email", "queen@graham.name"], ["address", "9423 Viela Pedro"], ["birthdate", Fri, 16 Feb 1962]]
+  [1m[35m (10.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 526324112"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "hanna_rutherford@pollich.net"], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Vitória Teixeira"], ["cellphone", "(85) 526324112"], ["created_at", 2017-04-18 21:15:21 UTC], ["updated_at", 2017-04-18 21:15:21 UTC], ["email", "hanna_rutherford@pollich.net"], ["address", "80537 Rua Samuel Gonçalves"], ["birthdate", Thu, 16 Mar 1961]]
+  [1m[35m (9.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 886847971"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "joaquin.kris@jacobson.net"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Silas Caldeira"], ["cellphone", "(85) 886847971"], ["created_at", 2017-04-18 21:15:22 UTC], ["updated_at", 2017-04-18 21:15:22 UTC], ["email", "joaquin.kris@jacobson.net"], ["address", "24968 Alameda Lucca"], ["birthdate", Sun, 29 Aug 1954]]
+  [1m[35m (9.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 943859274"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "alysha@cormier.info"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Rebeca Sales"], ["cellphone", "(85) 943859274"], ["created_at", 2017-04-18 21:16:05 UTC], ["updated_at", 2017-04-18 21:16:05 UTC], ["email", "alysha@cormier.info"], ["address", "s/n Rua Maria"], ["birthdate", Tue, 22 Aug 1995]]
+  [1m[35m (10.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 313631960"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "zoie@ratkelarson.biz"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Sra. Júlia Rezende"], ["cellphone", "(85) 313631960"], ["created_at", 2017-04-18 21:16:05 UTC], ["updated_at", 2017-04-18 21:16:05 UTC], ["email", "zoie@ratkelarson.biz"], ["address", "s/n Ponte Esther Reis"], ["birthdate", Tue, 23 Apr 1963]]
+  [1m[35m (10.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 138909695"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "amani@schinnerberge.net"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Talita Batista"], ["cellphone", "(85) 138909695"], ["created_at", 2017-04-18 21:16:06 UTC], ["updated_at", 2017-04-18 21:16:06 UTC], ["email", "amani@schinnerberge.net"], ["address", "32639 Ponte Ricardo Fogaça"], ["birthdate", Sun, 16 Sep 1990]]
+  [1m[35m (11.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 713301384"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "jeffery_nader@schmidtdaniel.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Francisco Fernandes"], ["cellphone", "(85) 713301384"], ["created_at", 2017-04-18 21:16:06 UTC], ["updated_at", 2017-04-18 21:16:06 UTC], ["email", "jeffery_nader@schmidtdaniel.com"], ["address", "18081 Rodovia Eduarda"], ["birthdate", Wed, 11 Dec 1957]]
+  [1m[35m (10.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 984968435"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "caterina@beierjast.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Francisco Aragão"], ["cellphone", "(85) 984968435"], ["created_at", 2017-04-18 21:16:06 UTC], ["updated_at", 2017-04-18 21:16:06 UTC], ["email", "caterina@beierjast.com"], ["address", "780 Rua Janaína"], ["birthdate", Fri, 24 Dec 1971]]
+  [1m[35m (10.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 065847654"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "jordy.wuckert@grimesrath.io"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Dra. Yuri Custódio"], ["cellphone", "(85) 065847654"], ["created_at", 2017-04-18 21:16:07 UTC], ["updated_at", 2017-04-18 21:16:07 UTC], ["email", "jordy.wuckert@grimesrath.io"], ["address", "390 Rua Melissa Ambrósio"], ["birthdate", Sun, 30 Dec 1990]]
+  [1m[35m (10.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 378381050"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "sarina@mueller.net"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Talita Muniz"], ["cellphone", "(85) 378381050"], ["created_at", 2017-04-18 21:16:07 UTC], ["updated_at", 2017-04-18 21:16:07 UTC], ["email", "sarina@mueller.net"], ["address", "5781 Rodovia Marcela Silveira"], ["birthdate", Thu, 25 Oct 1962]]
+  [1m[35m (10.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 569865963"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "emelie@connromaguera.io"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Sr. Luiza Sales"], ["cellphone", "(85) 569865963"], ["created_at", 2017-04-18 21:16:07 UTC], ["updated_at", 2017-04-18 21:16:07 UTC], ["email", "emelie@connromaguera.io"], ["address", "309 Ponte Aline Rodrigues"], ["birthdate", Wed, 10 Apr 1963]]
+  [1m[35m (10.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 499759766"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "cristobal_little@predovicdubuque.net"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Sra. Alexandre Rodrigues"], ["cellphone", "(85) 499759766"], ["created_at", 2017-04-18 21:16:12 UTC], ["updated_at", 2017-04-18 21:16:12 UTC], ["email", "cristobal_little@predovicdubuque.net"], ["address", "97639 Viela Joana Souza"], ["birthdate", Fri, 19 Feb 1960]]
+  [1m[35m (11.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 230664762"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "larue_stoltenberg@powlowski.org"], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Alessandro Veloso Jr."], ["cellphone", "(85) 230664762"], ["created_at", 2017-04-18 21:16:14 UTC], ["updated_at", 2017-04-18 21:16:14 UTC], ["email", "larue_stoltenberg@powlowski.org"], ["address", "7252 Rua Daniel"], ["birthdate", Sun, 26 Mar 1972]]
+  [1m[35m (13.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 111059969"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "shanny.brown@schimmel.co"], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Pedro Neves"], ["cellphone", "(85) 111059969"], ["created_at", 2017-04-18 21:16:15 UTC], ["updated_at", 2017-04-18 21:16:15 UTC], ["email", "shanny.brown@schimmel.co"], ["address", "60690 Rua Alice"], ["birthdate", Sun, 12 Feb 1984]]
+  [1m[35m (10.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 193431799"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "stanley@schultz.org"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Dr. Yango Barros"], ["cellphone", "(85) 193431799"], ["created_at", 2017-04-18 21:16:15 UTC], ["updated_at", 2017-04-18 21:16:15 UTC], ["email", "stanley@schultz.org"], ["address", "3542 Viela Karla"], ["birthdate", Sat, 21 Dec 1963]]
+  [1m[35m (9.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 633229664"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "dewayne.hickle@effertz.co"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Maria Aragão"], ["cellphone", "(85) 633229664"], ["created_at", 2017-04-18 21:16:15 UTC], ["updated_at", 2017-04-18 21:16:15 UTC], ["email", "dewayne.hickle@effertz.co"], ["address", "15993 Travessa Antônio"], ["birthdate", Wed, 11 Feb 1970]]
+  [1m[35m (9.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 346609161"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "coy@lindconn.biz"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Paula Nunes"], ["cellphone", "(85) 346609161"], ["created_at", 2017-04-18 21:16:16 UTC], ["updated_at", 2017-04-18 21:16:16 UTC], ["email", "coy@lindconn.biz"], ["address", "6427 Ponte Júlia Mendes"], ["birthdate", Sat, 20 Aug 1960]]
+  [1m[35m (8.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 471204338"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "enrique@blick.info"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Nataniel Ferreira"], ["cellphone", "(85) 471204338"], ["created_at", 2017-04-18 21:16:16 UTC], ["updated_at", 2017-04-18 21:16:16 UTC], ["email", "enrique@blick.info"], ["address", "5083 Rua Júlio Fogaça"], ["birthdate", Thu, 08 Mar 1962]]
+  [1m[35m (12.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 970904913"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "precious.mraz@feil.name"], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Kléber Veloso Filho"], ["cellphone", "(85) 970904913"], ["created_at", 2017-04-18 21:16:17 UTC], ["updated_at", 2017-04-18 21:16:17 UTC], ["email", "precious.mraz@feil.name"], ["address", "1487 Alameda Júlio"], ["birthdate", Mon, 24 Jul 1972]]
+  [1m[35m (9.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 388172938"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "colby@deckow.net"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Yango Oliveira"], ["cellphone", "(85) 388172938"], ["created_at", 2017-04-18 21:16:17 UTC], ["updated_at", 2017-04-18 21:16:17 UTC], ["email", "colby@deckow.net"], ["address", "79282 Rodovia Larissa"], ["birthdate", Mon, 06 May 1968]]
+  [1m[35m (9.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 537213050"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "dorian_fritsch@erdmanchamplin.biz"], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Valentina Gomes"], ["cellphone", "(85) 537213050"], ["created_at", 2017-04-18 21:16:17 UTC], ["updated_at", 2017-04-18 21:16:17 UTC], ["email", "dorian_fritsch@erdmanchamplin.biz"], ["address", "s/n Rua Francisco"], ["birthdate", Wed, 18 May 1977]]
+  [1m[35m (10.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 105123002"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "eino_mante@rutherfordjacobson.info"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Isabela Martins"], ["cellphone", "(85) 105123002"], ["created_at", 2017-04-18 21:16:18 UTC], ["updated_at", 2017-04-18 21:16:18 UTC], ["email", "eino_mante@rutherfordjacobson.info"], ["address", "58163 Ponte Karla"], ["birthdate", Fri, 13 Jun 1975]]
+  [1m[35m (10.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 998053418"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "leola@yundt.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Sílvia Araújo"], ["cellphone", "(85) 998053418"], ["created_at", 2017-04-18 21:16:18 UTC], ["updated_at", 2017-04-18 21:16:18 UTC], ["email", "leola@yundt.com"], ["address", "95046 Marginal Benício"], ["birthdate", Sat, 18 Dec 1976]]
+  [1m[35m (9.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 949552212"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "unique.bednar@cole.info"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Dra. Cecília Barros"], ["cellphone", "(85) 949552212"], ["created_at", 2017-04-18 21:16:18 UTC], ["updated_at", 2017-04-18 21:16:18 UTC], ["email", "unique.bednar@cole.info"], ["address", "s/n Rua Francisco Moreira"], ["birthdate", Sat, 29 Jul 1995]]
+  [1m[35m (12.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 449569539"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "stanford_dibbert@howe.biz"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Bernardo Vieira"], ["cellphone", "(85) 449569539"], ["created_at", 2017-04-18 21:16:19 UTC], ["updated_at", 2017-04-18 21:16:19 UTC], ["email", "stanford_dibbert@howe.biz"], ["address", "624 Marginal Caio Novaes"], ["birthdate", Sun, 14 Jan 1979]]
+  [1m[35m (9.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 649623515"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "annetta@klein.biz"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Sr. Tertuliano Lopes"], ["cellphone", "(85) 649623515"], ["created_at", 2017-04-18 21:16:19 UTC], ["updated_at", 2017-04-18 21:16:19 UTC], ["email", "annetta@klein.biz"], ["address", "50174 Rodovia Silas"], ["birthdate", Sun, 06 Mar 1988]]
+  [1m[35m (10.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 679836420"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "annabelle_moen@kiehn.info"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Yango Corrêa"], ["cellphone", "(85) 679836420"], ["created_at", 2017-04-18 21:16:20 UTC], ["updated_at", 2017-04-18 21:16:20 UTC], ["email", "annabelle_moen@kiehn.info"], ["address", "85085 Viela Fabiano Gonçalves"], ["birthdate", Thu, 12 Jun 1969]]
+  [1m[35m (9.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 924265570"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "friedrich@robelrunolfon.co"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Suélen Neves"], ["cellphone", "(85) 924265570"], ["created_at", 2017-04-18 21:16:20 UTC], ["updated_at", 2017-04-18 21:16:20 UTC], ["email", "friedrich@robelrunolfon.co"], ["address", "2643 Alameda Pedro"], ["birthdate", Sun, 11 Dec 1988]]
+  [1m[35m (9.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 808239191"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "keely.hoppe@cummerata.org"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Lorena Gomes"], ["cellphone", "(85) 808239191"], ["created_at", 2017-04-18 21:16:20 UTC], ["updated_at", 2017-04-18 21:16:20 UTC], ["email", "keely.hoppe@cummerata.org"], ["address", "s/n Travessa Mariana"], ["birthdate", Tue, 18 Dec 1990]]
+  [1m[35m (9.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 005389251"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "eddie@oberbrunnerwhite.net"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Srta. Joana Nascimento"], ["cellphone", "(85) 005389251"], ["created_at", 2017-04-18 21:16:21 UTC], ["updated_at", 2017-04-18 21:16:21 UTC], ["email", "eddie@oberbrunnerwhite.net"], ["address", "481 Viela Júlio"], ["birthdate", Sun, 27 Nov 1955]]
+  [1m[35m (12.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 881788721"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "noble@dubuqueferry.name"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Sr. Vitória Barbosa"], ["cellphone", "(85) 881788721"], ["created_at", 2017-04-18 21:16:21 UTC], ["updated_at", 2017-04-18 21:16:21 UTC], ["email", "noble@dubuqueferry.name"], ["address", "s/n Alameda Lucca"], ["birthdate", Sun, 14 Aug 1988]]
+  [1m[35m (10.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 307566450"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "luis_reichert@goldner.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Feliciano Fernandes"], ["cellphone", "(85) 307566450"], ["created_at", 2017-04-18 21:16:22 UTC], ["updated_at", 2017-04-18 21:16:22 UTC], ["email", "luis_reichert@goldner.com"], ["address", "3873 Marginal Helena"], ["birthdate", Tue, 07 Jun 1960]]
+  [1m[35m (10.1ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/contacts" for 127.0.0.1 at 2017-04-18 18:16:35 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "contacts"[0m
+  [1m[36mContact Load (0.6ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" ORDER BY "contacts"."nome" ASC LIMIT ? OFFSET ?[0m  [["LIMIT", 25], ["OFFSET", 0]]
+  Rendered contacts/index.html.erb within layouts/application (659.8ms)
+Completed 200 OK in 931ms (Views: 912.1ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/contacts?page=2" for 127.0.0.1 at 2017-04-18 18:16:44 -0300
+Processing by ContactsController#index as HTML
+  Parameters: {"page"=>"2"}
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "contacts"[0m
+  [1m[36mContact Load (0.9ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" ORDER BY "contacts"."nome" ASC LIMIT ? OFFSET ?[0m  [["LIMIT", 25], ["OFFSET", 25]]
+  Rendered contacts/index.html.erb within layouts/application (35.5ms)
+Completed 200 OK in 65ms (Views: 61.5ms | ActiveRecord: 1.5ms)
+
+
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 325993725"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "emely@kuhic.net"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Dra. Catarina Silva"], ["cellphone", "(85) 325993725"], ["created_at", 2017-04-18 21:17:43 UTC], ["updated_at", 2017-04-18 21:17:43 UTC], ["email", "emely@kuhic.net"], ["address", "10312 Rodovia Marcelo"], ["birthdate", Sun, 16 Jan 1966]]
+  [1m[35m (8.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mContact Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."cellphone" = ? LIMIT ?[0m  [["cellphone", "(85) 745980749"], ["LIMIT", 1]]
+  [1m[36mContact Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "contacts" WHERE "contacts"."email" = ? LIMIT ?[0m  [["email", "mireille@gulgowski.co"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "contacts" ("nome", "cellphone", "created_at", "updated_at", "email", "address", "birthdate") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["nome", "Dr. Elísio Fogaça"], ["cellphone", "(85) 745980749"], ["created_at", 2017-04-18 21:18:05 UTC], ["updated_at", 2017-04-18 21:18:05 UTC], ["email", "mireille@gulgowski.co"], ["address", "5984 Ponte Enrico Chaves"], ["birthdate", Wed, 14 Feb 1979]]
+  [1m[35m (9.3ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/contacts" for 127.0.0.1 at 2017-04-18 18:18:22 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "contacts"[0m
+  [1m[36mContact Load (0.6ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" ORDER BY "contacts"."nome" ASC LIMIT ? OFFSET ?[0m  [["LIMIT", 25], ["OFFSET", 0]]
+  Rendered contacts/index.html.erb within layouts/application (719.5ms)
+Completed 200 OK in 981ms (Views: 960.2ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/contacts?page=2" for 127.0.0.1 at 2017-04-18 18:18:43 -0300
+Processing by ContactsController#index as HTML
+  Parameters: {"page"=>"2"}
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "contacts"[0m
+  [1m[36mContact Load (0.9ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" ORDER BY "contacts"."nome" ASC LIMIT ? OFFSET ?[0m  [["LIMIT", 25], ["OFFSET", 25]]
+  Rendered contacts/index.html.erb within layouts/application (36.7ms)
+Completed 200 OK in 76ms (Views: 72.3ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2017-04-18 18:20:46 -0300
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "contacts"[0m
+  [1m[36mContact Load (0.9ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" ORDER BY "contacts"."nome" ASC LIMIT ? OFFSET ?[0m  [["LIMIT", 25], ["OFFSET", 0]]
+  Rendered contacts/index.html.erb within layouts/application (761.8ms)
+Completed 200 OK in 798ms (Views: 788.2ms | ActiveRecord: 2.1ms)
+
+
+Started GET "/contacts?page=2" for 127.0.0.1 at 2017-04-18 18:21:06 -0300
+Processing by ContactsController#index as HTML
+  Parameters: {"page"=>"2"}
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "contacts"[0m
+  [1m[36mContact Load (0.6ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" ORDER BY "contacts"."nome" ASC LIMIT ? OFFSET ?[0m  [["LIMIT", 25], ["OFFSET", 25]]
+  Rendered contacts/index.html.erb within layouts/application (24.5ms)
+Completed 200 OK in 49ms (Views: 46.9ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2017-04-18 18:21:08 -0300
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "contacts"[0m
+  [1m[36mContact Load (0.6ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" ORDER BY "contacts"."nome" ASC LIMIT ? OFFSET ?[0m  [["LIMIT", 25], ["OFFSET", 0]]
+  Rendered contacts/index.html.erb within layouts/application (25.9ms)
+Completed 200 OK in 50ms (Views: 47.8ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2017-04-18 18:21:39 -0300
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "contacts"[0m
+  [1m[36mContact Load (0.6ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" ORDER BY "contacts"."nome" ASC LIMIT ? OFFSET ?[0m  [["LIMIT", 25], ["OFFSET", 0]]
+  Rendered contacts/index.html.erb within layouts/application (30.0ms)
+Completed 200 OK in 68ms (Views: 65.2ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2017-04-18 18:22:14 -0300
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "contacts"[0m
+  [1m[36mContact Load (0.7ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" ORDER BY "contacts"."nome" ASC LIMIT ? OFFSET ?[0m  [["LIMIT", 25], ["OFFSET", 0]]
+  Rendered contacts/index.html.erb within layouts/application (37.2ms)
+Completed 200 OK in 66ms (Views: 63.5ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/contacts?page=2" for 127.0.0.1 at 2017-04-18 18:22:17 -0300
+Processing by ContactsController#index as HTML
+  Parameters: {"page"=>"2"}
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "contacts"[0m
+  [1m[36mContact Load (0.6ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" ORDER BY "contacts"."nome" ASC LIMIT ? OFFSET ?[0m  [["LIMIT", 25], ["OFFSET", 25]]
+  Rendered contacts/index.html.erb within layouts/application (33.2ms)
+Completed 200 OK in 57ms (Views: 54.4ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/contacts" for 127.0.0.1 at 2017-04-18 18:22:19 -0300
+Processing by ContactsController#index as HTML
+  Rendering contacts/index.html.erb within layouts/application
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "contacts"[0m
+  [1m[36mContact Load (0.6ms)[0m  [1m[34mSELECT  "contacts".* FROM "contacts" ORDER BY "contacts"."nome" ASC LIMIT ? OFFSET ?[0m  [["LIMIT", 25], ["OFFSET", 0]]
+  Rendered contacts/index.html.erb within layouts/application (41.4ms)
+Completed 200 OK in 72ms (Views: 68.4ms | ActiveRecord: 0.9ms)
+
+

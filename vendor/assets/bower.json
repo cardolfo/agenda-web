@@ -1,0 +1,7 @@
+{
+  "name": "dsl-generated-dependencies",
+  "dependencies": {
+    "masked-input": "latest",
+    "jquery-maskedinput": "latest"
+  }
+}
